@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -name: Bump version
-        run: npm version prerelease --preid="alpha"
+        run: npm version prerelease --preid=alpha
       - run: |
           echo The PR was merged
