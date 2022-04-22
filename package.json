@@ -1,0 +1,19 @@
+{
+  "name": "github-actions-test",
+  "version": "0.0.1",
+  "description": "Test/experimentation for github actions",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidarsann/github-actions-test.git"
+  },
+  "author": "Vidar Sannerud <vsannerud@evolution.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vidarsann/github-actions-test/issues"
+  },
+  "homepage": "https://github.com/vidarsann/github-actions-test#readme"
+}
