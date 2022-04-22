@@ -4,7 +4,8 @@
   "description": "Test/experimentation for github actions",
   "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "quickpush": "git add . && git commit -m \"quickpush\" && git push"
   },
   "repository": {
     "type": "git",
