@@ -5,20 +5,21 @@ on:
       - main
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2.1.0
-
-    - name: Setup git config
-      run: |
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-        
-    - name: Bump version
-      run: |
-        npm version prerelease --preid=alpha
-        git push
-
-    - name: Echo status
-      run: |
-        echo Version was bumped : )
+  on-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+  
+      - name: Setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: Bump version
+        run: |
+          npm version prerelease --preid=alpha
+          git push
+  
+      - name: Echo status
+        run: |
+          echo Version was bumped : )
