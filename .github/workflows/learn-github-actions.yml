@@ -19,6 +19,7 @@ jobs:
           
       - name: Bump version
         run: |
+          git pull origin main
           npm version prerelease --preid=alpha
           git push
 
