@@ -1,11 +1,9 @@
-name: push
+name: major-version-release
 on: 
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  on-push:
+  release-major-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.1.0
@@ -14,13 +12,13 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-
+          
       - name: Bump version
         run: |
           git pull origin main
-          npm version prerelease --preid=alpha
+          npm version major
           git push
 
-      - name: Echo status
+      - name: Echo PR merge
         run: |
-          echo Version was bumped
+          echo ECAS major version updated

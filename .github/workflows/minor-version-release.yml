@@ -1,0 +1,24 @@
+name: minor-version-release
+on: 
+  workflow_dispatch:
+
+jobs:
+  release-minor-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+
+      - name: Setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: Bump version
+        run: |
+          git pull origin main
+          npm version minor
+          git push
+
+      - name: Echo PR merge
+        run: |
+          echo ECAS minor version updated
