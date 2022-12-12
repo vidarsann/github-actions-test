@@ -7,7 +7,7 @@ on:
         description: Which type of release
         options:
         - alpha
-        - fix
+        - patch
         - minor
         - major
         
@@ -25,7 +25,7 @@ jobs:
       - name: Bump version
         run: |
           git pull origin main
-          npm version patch
+          npm version "${{ github.event.input.name }}"
           git push
 
       - name: Echo PR merge
