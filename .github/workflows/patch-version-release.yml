@@ -1,7 +1,16 @@
 name: patch-version-release
 on: 
   workflow_dispatch:
-
+    inputs:
+      type:
+        type: choice
+        description: Which type of release
+        options:
+        - alpha
+        - fix
+        - minor
+        - major
+        
 jobs:
   release-patch-version:
     runs-on: ubuntu-latest
