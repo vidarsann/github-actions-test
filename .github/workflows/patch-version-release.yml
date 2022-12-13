@@ -25,17 +25,17 @@ jobs:
           git config user.email "<>"
           
       - name: Bump alpha versions
-        if: "contains(github.event.inputs.name, 'alpha')"
+        if: "contains(github.event.inputs.type, 'alpha')"
         run: |
           git pull origin main
-          npm version prerelease --preid=${{ github.event.input.name }}
+          npm version prerelease --preid=${{ github.event.inputs.type }}
           git push
           
       - name: Bump version
-        if: "!contains(github.event.inputs.name, 'alpha')"
+        if: "!contains(github.event.inputs.type, 'alpha')"
         run: |
           git pull origin main
-          npm version ${{ github.event.input.name }}
+          npm version ${{ github.event.inputs.type }}
           git push
 
       - name: Echo PR merge
