@@ -4,6 +4,8 @@ on:
     inputs:
       type:
         type: choice
+        required: true
+        default: 'alpha'
         description: Which type of release
         options:
         - alpha
@@ -22,7 +24,15 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           
+      - name: Bump alpha versions
+        if: "contains(github.event.inputs.name, 'alpha')"
+        run: |
+          git pull origin main
+          npm version prerelease --preid=${{ github.event.input.name }}
+          git push
+          
       - name: Bump version
+        if: "!contains(github.event.inputs.name, 'alpha')"
         run: |
           git pull origin main
           npm version ${{ github.event.input.name }}
