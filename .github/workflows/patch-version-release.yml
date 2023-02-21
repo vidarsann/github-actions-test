@@ -36,6 +36,7 @@ jobs:
         run: |
           git pull origin main
           npm version ${{ github.event.inputs.type }}
+          echo ${{ github.event.commits[18].message }}
           git commit --amend -m "${{ github.event.commits[18].message }}"
           git push
 
