@@ -55,7 +55,7 @@ jobs:
 
       - name: Push changes
         run: |
-          git push -f origin HEAD:refs/heads/main
+          git push -f
 
       - name: Echo PR merge
         run: |
