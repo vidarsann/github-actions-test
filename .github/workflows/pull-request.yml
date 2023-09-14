@@ -17,11 +17,45 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          
-      - name: Bump version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16  # Adjust to your project's Node.js version
+
+      - name: Get the PR title
+        id: pr_title
         run: |
-          npm version prerelease --preid=alpha
-          git push
+          echo "::set-output name=title::$(curl -s -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' ${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} | jq -r '.title')"
+  
+      - name: Determine version bump
+        id: version_bump
+        run: |
+          PR_TITLE="${{ steps.pr_title.outputs.title }}"
+          if [[ $PR_TITLE == *"[Major]"* ]]; then
+            echo "major"
+          elif [[ $PR_TITLE == *"[Minor]"* ]]; then
+            echo "minor"
+          else
+            echo "patch"
+          fi
+          echo "::set-output name=bump::$(echo $?)"
+
+      - name: Increment version and commit
+        run: |
+          BUMP="${{ steps.version_bump.outputs.bump }}"
+          if [[ $BUMP == "major" ]]; then
+            npm version major --no-git-tag-version
+          elif [[ $BUMP == "minor" ]]; then
+            npm version minor --no-git-tag-version
+          else
+            npm version patch --no-git-tag-version
+          fi
+          git commit -am "Auto-incremented version on PR merge [skip ci]"
+
+      - name: Push changes
+        run: |
+          git push origin HEAD:refs/heads/main
 
       - name: Echo PR merge
         run: |
