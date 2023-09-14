@@ -10,7 +10,8 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.1.0
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup git config
         run: |
@@ -19,7 +20,6 @@ jobs:
           
       - name: Bump version
         run: |
-          git pull origin main
           npm version prerelease --preid=alpha
           git push
 
