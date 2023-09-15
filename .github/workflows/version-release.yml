@@ -1,0 +1,38 @@
+name: version-release
+on:
+  workflow_dispatch:
+    inputs:
+      release-notes-reminder:
+        type: choice
+        required: true
+        default: 'no'
+        description: Have you updated the release notes for this release?
+        options:
+        - yes
+        - no
+      should-record-tests:
+        type: boolean
+        required: true
+        description: Record tests
+        default: true
+      type:
+        type: choice
+        required: true
+        default: 'alpha'
+        description: Which type of release
+        options:
+        - alpha
+        - patch
+        - minor
+        - major
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    steps: 
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: 16.11.1
+
+      
